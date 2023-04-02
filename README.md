@@ -20,8 +20,8 @@ Temas:
 ## Alunos
 |Matrícula | Aluno |
 | -- | -- |
-| xx/xxxxxx  |  xxxx xxxx xxxxx |
-| xx/xxxxxx  |  xxxx xxxx xxxxx |
+| 18/0016563  |  Filipe Santana Machado |
+| xx/xxxxxx  |  Cainã Valença de Freitas |
 
 ## Sobre 
 Descreva os objetivos do seu projeto e como ele funciona. 
