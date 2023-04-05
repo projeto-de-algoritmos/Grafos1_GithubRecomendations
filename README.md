@@ -1,7 +1,7 @@
 # Grafos1_GithubRecomendations
 
 **Número da Lista**: X<br>
-**Conteúdo da Disciplina**: XXXXXXXXXX<br>
+**Conteúdo da Disciplina**: Grafos1<br>
 
 ## Alunos
 |Matrícula | Aluno |
@@ -10,7 +10,7 @@
 | xx/xxxxxx  |  Cainã Valença de Freitas |
 
 ## Sobre 
-Descreva os objetivos do seu projeto e como ele funciona. 
+Serverless single-page-application para recomentação de seguidores no Github.
 
 ## Screenshots
 Adicione 3 ou mais screenshots do projeto em funcionamento.
