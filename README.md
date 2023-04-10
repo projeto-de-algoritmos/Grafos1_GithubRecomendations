@@ -13,7 +13,7 @@
 Serverless single-page-application para recomentação de seguidores no Github.
 
 ## Screenshots
-Adicione 3 ou mais screenshots do projeto em funcionamento.
+![image](https://user-images.githubusercontent.com/40258400/231008800-fc143435-c8f4-48b4-aa91-4b56fbf6c8c5.png)
 
 ## Instalação 
 **Linguagem**: Javascript<br>
