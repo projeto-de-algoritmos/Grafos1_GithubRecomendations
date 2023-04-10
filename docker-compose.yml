@@ -6,7 +6,9 @@ services:
       context: ./GithubRecomendations
       dockerfile: ../Dockerfile
     volumes:
-    - ./GithubRecomendations:/app/
+      - ./GithubRecomendations:/app/
+    environment:
+      - NODE_ENV=development
     tty: true
     ports:
       - '5173:5173'
