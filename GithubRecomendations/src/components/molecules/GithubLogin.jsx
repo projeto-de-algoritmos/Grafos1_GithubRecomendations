@@ -17,7 +17,7 @@ function getGitHubUrl() {
     const qs = new URLSearchParams(options);
   
     return `${rootURl}?${qs.toString()}`;
-}  
+}
 
 function GithubLogin() {
     const [count, setCount] = useState(0)
