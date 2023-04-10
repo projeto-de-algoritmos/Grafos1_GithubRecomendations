@@ -2,10 +2,23 @@ body {
   background-color: #0D1117;
 }
 
+.App {
+  height: 100dvh;
+  width: 100dvw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blob {
+  background-color: white;
+  height: 500px;
+  aspect-ratio: 1;
+  position: absolute;
+}
+
 #root {
   max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
 
