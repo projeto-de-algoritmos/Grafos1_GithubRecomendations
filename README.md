@@ -10,7 +10,7 @@
 | xx/xxxxxx  |  Cainã Valença de Freitas |
 
 ## Sobre 
-Serverless single-page-application para recomentação de seguidores no Github.
+Serverless single-page-application para recomendação de seguidores no Github.
 
 ## Screenshots
 ![image](https://user-images.githubusercontent.com/40258400/231008800-fc143435-c8f4-48b4-aa91-4b56fbf6c8c5.png)
