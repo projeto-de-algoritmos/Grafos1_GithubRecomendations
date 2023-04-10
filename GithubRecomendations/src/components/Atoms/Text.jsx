@@ -1,14 +1,15 @@
 import styled from "styled-components";
 
-interface StyledTextInterface {
-  weight?: 'regular' | 'semibold' | 'bold';
-  color?: string;
-  size?: string;
-  shadow?: string;
-  margin?: string;
-}
 
-const Text = styled.span<StyledTextInterface>`
+const Text = styled.span.attrs(
+  props => ({
+    weight: props.weight ? 'regular' | 'semibold' | 'bold' : 'regular',
+    color: props.color,
+    size: props.size,
+    shadow: props.shadow,
+    margin: props.margin,
+  })
+)`
 width: fit-content;
 font-size: ${({ size }) => size || '18px'};
 font-weight: ${({ weight }) => weight === 'semibold' ? '600' : weight};

@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import '../App.css'
 import Text from './Atoms/Text'
-import syled from "styled-components"
 
 
 function App() {
