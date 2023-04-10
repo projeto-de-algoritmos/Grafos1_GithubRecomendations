@@ -2,14 +2,14 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY . .
+
+RUN npm install -g vite
+
+RUN ls
 
 RUN npm install --frozen-lockfile
-
-COPY . .
 
 RUN npm run build
 
 EXPOSE 5173
-
-CMD ["npm", "run", "dev"]
