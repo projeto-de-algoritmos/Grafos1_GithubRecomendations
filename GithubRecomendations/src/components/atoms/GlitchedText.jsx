@@ -16,7 +16,7 @@ function TextArea({ className, children }) {
 
             clearInterval(interval);
 
-            
+
 
             interval = setInterval(() => {
                 event.target.innerText = event.target.innerText
@@ -30,20 +30,15 @@ function TextArea({ className, children }) {
                     })
                     .join("");
 
-                    console.log(event.target.innerText)
+                if (iteration >= event.target.innerText.length) {
+                    clearInterval(interval);
+                    iteration = 0;
+                }
 
-                    if(iteration >= event.target.innerText.length){ 
-                        clearInterval(interval);
-                        iteration = 0;
-                    }
-
-                    
                 iteration += 1 / 5;
-
-                console.log(iteration)
             }, 30);
 
-            
+
         }
 
     }, []);
