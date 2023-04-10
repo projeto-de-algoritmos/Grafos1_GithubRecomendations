@@ -1,42 +1,93 @@
+body {
+  background-color: #0D1117;
+  overflow: hidden;
+  margin: 0rem;
+}
+
+.background {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.content {
+  z-index: 10;
+}
+
+.App {
+  height: 100dvh;
+  width: 100dvw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blob {
+  background-color: white;
+  height: 500px;
+  aspect-ratio: 1;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  border-radius: 50%;
+
+  background: linear-gradient(
+    to right,
+    aquamarine,
+    mediumpurple
+  );
+  z-index: -1;
+  animation: rotate 20s infinite;
+  
+}
+
+@keyframes rotate {
+  from {
+    rotate: 0deg;
+  }
+
+  to {
+    rotate: 360deg;
+  }
+}
+
+.blur {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: -1;
+  backdrop-filter: blur(12vmax);
+}
+
 #root {
   max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.login-button {
+  height: fit-content;
+  margin-top: 2rem;
+  padding: 8px;
+  padding-left: 3em;
+  padding-right: 3em;
+  background-color: green;
+  border-radius: 8px;
+  color: white;
+  display: flex;
+  align-items: space-around;
+  gap: 1rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.login-button img {
+  filter: brightness(0) invert(1);
+  height: 3em;
 }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+.login-button:hover {
+  background-color: #2e8b57;
+  color: white;
 }
