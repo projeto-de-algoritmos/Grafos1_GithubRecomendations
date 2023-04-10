@@ -7,19 +7,17 @@ import Login from './components/organisms/Login'
 
 function App() {
   const [count, setCount] = useState(0)
-
-  const blob = document.querySelector('.blob')
-
-  document.body.onpointermove = event => {
-    const { clientX, clientY } = event;
-
-    blob.style.left `${clientX}px`;
-    blob.style.top `${clientY}px`;
-  }
+  const [position, setPosition] = useState({ x: 0, y:0});
 
   return (
     <div className="App">
-      {/*<span className="blob" />*/}
+      <span className="blob" onMouseMove={(e) => setPosition({x: e.clientX, y: e.clientY })}
+        style={{
+          position: 'absolute',
+          top: position.y,
+          left: position.x,
+        }}
+      />
       <Login/>
     </div>
   )
