@@ -21,6 +21,21 @@ function getGitHubUrl() {
     return `${rootURl}?${qs.toString()}`;
 }
 
+async function getAccessToken(code) {
+    await fetch("http://localhost:5000/getAccessToken?code=" + code,{
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Allow-Control-Allow-Origin': '*',
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        return data;
+    })
+}
+
 function GithubLogin() {
     const [rerender, setRerender] = useState(false)
     const [count, setCount] = useState(0)
@@ -36,20 +51,18 @@ function GithubLogin() {
         const code = urlParams.get('code');
 
         if (code && (localStorage.getItem('access_token') === null)) {
-            async function getAccessToken() {
-                await fetch("https://localhost:5173/getAccessToken?code=" + code,{
-                    method: 'GET',
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data)
-                    if(data.access_token){
-                        localStorage.setItem('access_token', data.access_token);
-                        setRerender(!rerender);
-                    }
-                })
+            const response = getAccessToken(code);
+            if(response.access_token){
+                console.log('token = ' + response.access_token)
+                localStorage.setItem('access_token', response.access_token);
+                setRerender(!rerender);
             }
         }
+        // teste para verificar se o token está sendo salvo no local storage
+        //else if(localStorage.getItem('access_token') !== null){
+        //    console.log('token = ' + localStorage.getItem('access_token'));
+        //    setRerender(!rerender);
+        //}
             
     }, []);
 
