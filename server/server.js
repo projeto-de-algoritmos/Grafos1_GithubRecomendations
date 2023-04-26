@@ -58,7 +58,6 @@ app.get('/getUserData', async function (req, res) {
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            'Access-Control-Allow-Headers': '*',
             'Authorization': req.get("Authorization"),
         }})
     .then(response => {return response.json()})
