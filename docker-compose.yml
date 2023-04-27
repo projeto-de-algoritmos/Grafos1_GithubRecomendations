@@ -4,12 +4,22 @@ services:
     container_name: github-recomendations
     build:
       context: ./GithubRecomendations
-      dockerfile: ../Dockerfile
+      dockerfile: ../GithubRecomendations/Dockerfile
     volumes:
       - ./GithubRecomendations:/app/
     environment:
       - NODE_ENV=development
-    tty: true
-    entrypoint: npm run dev
     ports:
       - '5173:5173'
+
+  github-recomendations-server:
+    container_name: github-recomendations-server
+    build:
+      context: ./server
+      dockerfile: ../server/Dockerfile
+    volumes:
+      - ./server:/app/
+    environment:
+      - NODE_ENV=development
+    ports:
+      - '5000:5000'
