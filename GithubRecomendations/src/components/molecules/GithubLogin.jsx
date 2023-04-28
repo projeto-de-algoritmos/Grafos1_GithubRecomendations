@@ -52,7 +52,7 @@ function GithubLogin() {
 
         if (code && (localStorage.getItem('access_token') === null)) {
             async function getAccessToken () {
-                await fetch("http://localhost:5000/getAccessToken?code=" + code,{
+                await fetch("http://localhost:8000/getAccessToken?code=" + code,{
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ function GithubLogin() {
         // console.log('token = ' + localStorage.getItem('access_token'));
         // console.log('code = ' + code);
         // localStorage.removeItem('access_token');
-        // getUserData();
+        getUserData();
     }, []);
 
     return (
