@@ -73,10 +73,10 @@ function GithubLogin() {
             getAccessToken();
         }
         
-        // console.log('token = ' + localStorage.getItem('access_token'));
-        // console.log('code = ' + code);
+        console.log('token = ' + localStorage.getItem('access_token'));
+        console.log('code = ' + code);
         // localStorage.removeItem('access_token');
-        getUserData();
+        //getUserData();
     }, []);
 
     return (

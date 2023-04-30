@@ -8,8 +8,11 @@ import Login from './components/organisms/Login'
 function App() {
   const [count, setCount] = useState(0)
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [accessToken, setAccessToken] = useState(null);
 
   useEffect(() => {
+    // Animation for the background blob
     function handleMouseMove(e) {
       setPosition({ x: e.clientX, y: e.clientY });
     }
@@ -31,6 +34,14 @@ function App() {
       document.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem('access_token');
+    if (storedToken) {
+      setAccessToken(storedToken);
+      setIsLoggedIn(true);
+    }
+  }, [accessToken]);
     
   return (
     <div className="App">
@@ -45,7 +56,7 @@ function App() {
         <div className='blur'/>
       </div>
       <div className='content'>
-        <Login/>
+        {isLoggedIn ? (<h1>TESTE</h1>) : (<Login/>)}    
       </div>
     </div>
   )
