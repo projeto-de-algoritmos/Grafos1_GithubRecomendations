@@ -88,10 +88,8 @@ app.get('/getFriendsofFriendsGraph', async function (req, res) {
         graph.edges.push({from: 'user', to: friend});
     });
     
-    for (let i = 0; i < friends.length; i++) {
-        const FriendsofFriends = [];
-
-        await fetch('https://api.github.com/users/' + friends[i].login + '/followers', {
+    for (let i = 0; i < friends[0].length; i++) {
+        await fetch('https://api.github.com/users/' + friends[0][i] + '/followers', {
         mode: 'cors',
         method: 'GET',
         headers: {
@@ -101,12 +99,15 @@ app.get('/getFriendsofFriendsGraph', async function (req, res) {
             'X-GitHub-Api-Version': '2022-11-28',
         }})
         .then(response => {return response.json()})
-        .then(data => FriendsofFriends.push(data.map(item => item.login)));
-
-        FriendsofFriends[0].forEach(friend => {
-            graph.nodes.push({id: friend, label: friend});
-            graph.edges.push({from: friends[i], to: friend});
-        });
+        .then(data => data.map(item => item.login).forEach(friend => {
+            if (!graph.nodes.find(node => node.id === friend)){
+                graph.nodes.push({id: friend, label: friend});
+                graph.edges.push({from: friend, to: friends[0][i]});
+            }
+            else{
+                graph.edges.push({from: friend, to: friends[0][i]});
+            }
+        }));
     }
 
     res.send(graph);
