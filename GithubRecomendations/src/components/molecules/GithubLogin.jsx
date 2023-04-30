@@ -3,6 +3,7 @@ import githubIcon from '../../assets/github.svg'
 import '../../App.css'
 import Text from '../atoms/Text'
 
+
 const client_id = import.meta.env.VITE_GITGUB_CLIENT_ID;
 const client_secret = import.meta.env.VITE_GITGUB_CLIENT_SECRET;
 
@@ -19,21 +20,6 @@ function getGitHubUrl() {
     const qs = new URLSearchParams(options);
   
     return `${rootURl}?${qs.toString()}`;
-}
-
-async function getUserData(){
-    await fetch("https://api.github.com/user",{
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
-        },
-    })
-    .then(response => {return response.json()})
-    .then(data => {
-        console.log(data);
-    });
 }
 
 function GithubLogin() {
@@ -66,17 +52,15 @@ function GithubLogin() {
                     if(data.access_token){
                         localStorage.setItem('access_token', data.access_token);
                         console.log('token salvo = ' + data.access_token)
-                        setRerender(!rerender);
+                        window.location.replace('/');
                     }
                 });
             }
             getAccessToken();
         }
         
-        console.log('token = ' + localStorage.getItem('access_token'));
-        console.log('code = ' + code);
-        // localStorage.removeItem('access_token');
-        //getUserData();
+        // console.log('token = ' + localStorage.getItem('access_token'));
+        // console.log('code = ' + code);
     }, []);
 
     return (
