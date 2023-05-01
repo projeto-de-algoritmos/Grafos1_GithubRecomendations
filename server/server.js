@@ -85,7 +85,15 @@ app.get('/getFriendsofFriendsGraph', async function (req, res) {
         }
         throw new Error('Network response was not ok.'); // if response is not ok, throws error
     }) 
-    .then(data => friends.push(data.map(item => item))) //gets user friends
+    .then(data => {
+        if (Array.isArray(data)) {
+          data.map(item => item).forEach(friend => {
+            friends.push(data.map(item => item))
+          });
+        } else {
+          console.log('data is not an array or is undefined');
+        }
+      })
     .catch(error => {
         console.error('Error:', error);
     });
