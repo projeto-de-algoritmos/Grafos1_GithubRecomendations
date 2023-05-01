@@ -114,7 +114,15 @@ app.get('/getFriendsofFriendsGraph', async function (req, res) {
             'X-GitHub-Api-Version': '2022-11-28',
         }})
         .then(response => {return response.json()})
-        .then(data => {friends[0][i].adjacent = data.map(item => item.login)}); //adds followers to friends adj list
+        .then(data => {
+            if (Array.isArray(data)) {
+              data.map(item => item).forEach(friend => {
+                friends[0][i].adjacent.push(friend.login);
+              });
+            } else {
+              console.log('data is not an array or is undefined');
+            }
+          });
     }
     // console.log(items)
 
