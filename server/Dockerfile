@@ -1,8 +1,10 @@
 FROM node:18-alpine
 
-WORKDIR /app
+WORKDIR /server-app
 
 COPY . .
+
+RUN npm install -g express
 
 RUN npm install --frozen-lockfile
 
