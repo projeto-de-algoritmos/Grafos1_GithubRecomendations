@@ -122,7 +122,7 @@ app.get('/getFriendsofFriendsGraph', async function (req, res) {
                 }
               });
             } else {
-              console.log('data is not an array or is undefined');
+              console.log(data);
             }
           });
     }
