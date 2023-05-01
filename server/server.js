@@ -16,10 +16,10 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
-  });
+});
 
 
-  async function getUserData(req) {
+async function getUserData(req) {
     const response = await fetch('https://api.github.com/user', {
         mode: 'cors',
         method: 'GET',
@@ -79,8 +79,17 @@ app.get('/getFriendsofFriendsGraph', async function (req, res) {
             'Authorization': req.get("Authorization"),
             'X-GitHub-Api-Version': '2022-11-28',
         }})
-    .then(response => {return response.json()})
-    .then(data => friends.push(data.map(item => item))); //gets user friends
+    .then(response => {
+        if(response.ok){
+            return response.json();
+        }
+        throw new Error('Network response was not ok.'); // if response is not ok, throws error
+    }) 
+    .then(data => friends.push(data.map(item => item))) //gets user friends
+    .catch(error => {
+        console.error('Error:', error);
+    });
+    
 
     user.adjacent = friends[0].map(item => item.login); //adds friends to user adj list
     friends[0].forEach(item => item.adjacent = [user.login]); //adds user to friends adj list
