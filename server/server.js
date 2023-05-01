@@ -106,25 +106,7 @@ app.get('/getFriendsofFriendsGraph', async function (req, res) {
             'X-GitHub-Api-Version': '2022-11-28',
         }})
         .then(response => {return response.json()})
-        .then(data => {
-            if (Array.isArray(data)) {
-              data.map(item => item).forEach(friend => {
-                if (!items.some(item => item.login === friend.login)) { //if friend is not in items list
-                    friend.adjacent = [friends[0][i].login]; //adds friend to adj list
-                    items.push(friend); //adds friend to items list
-                }
-                else{
-                    items.forEach(item => {
-                        if (item.login === friend.login) { //if friend is in items list
-                            item.adjacent.push(friends[0][i].login); //adds friend to adj list
-                        }
-                    })
-                }
-              });
-            } else {
-              console.log(data);
-            }
-          });
+        .then(data => {friends[0][i].adjacent = data.map(item => item.login)}); //adds followers to friends adj list
     }
     // console.log(items)
 
