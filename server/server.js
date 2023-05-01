@@ -19,6 +19,21 @@ app.use(function(req, res, next) {
   });
 
 
+  async function getUserData(req) {
+    const response = await fetch('https://api.github.com/user', {
+        mode: 'cors',
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': req.get("Authorization"),
+        }
+    });
+    const data = await response.json();
+    return data;
+}
+
+
 app.get('/getAccessToken', async function (req, res) {
     const code = req.query.code;
     const rootURl = 'https://github.com/login/oauth/access_token';
@@ -48,29 +63,13 @@ app.get('/getAccessToken', async function (req, res) {
     .then(data => res.json(data));
 });
 
-app.get('/getUserData', async function (req, res) {
-    req.get("Authorization");
-    await fetch('https://api.github.com/user', {
-        mode: 'cors',
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': req.get("Authorization"),
-        }})
-    .then(response => {return response.json()})
-    .then(data => res.json(data));
-}); 
-
 app.get('/getFriendsofFriendsGraph', async function (req, res) {
 
-    const graph = {
-        nodes: [{id: 'user', label: 'User'}],
-        edges: [],
-    };
+    const user = await getUserData(req); //gets user data
+    const items = [];
 
     const friends = [];
-    req.get("Authorization");
+    req.get("Authorization"); 
     await fetch('https://api.github.com/user/following', {
         mode: 'cors',
         method: 'GET',
@@ -81,15 +80,14 @@ app.get('/getFriendsofFriendsGraph', async function (req, res) {
             'X-GitHub-Api-Version': '2022-11-28',
         }})
     .then(response => {return response.json()})
-    .then(data => {friends.push(data.map(item => item.login))});
+    .then(data => friends.push(data.map(item => item))); //gets user friends
 
-    friends[0].forEach(friend => {
-        graph.nodes.push({id: friend, label: friend});
-        graph.edges.push({from: 'user', to: friend});
-    });
-    
+    user.adjacent = friends[0].map(item => item.login); //adds friends to user adj list
+    friends[0].forEach(item => item.adjacent = [user.login]); //adds user to friends adj list
+    items.push(user, ...friends[0]); //adds user and friends to items list
+
     for (let i = 0; i < friends[0].length; i++) {
-        await fetch('https://api.github.com/users/' + friends[0][i] + '/followers', {
+        await fetch('https://api.github.com/users/' + friends[0][i].login + '/followers', {
         mode: 'cors',
         method: 'GET',
         headers: {
@@ -99,18 +97,23 @@ app.get('/getFriendsofFriendsGraph', async function (req, res) {
             'X-GitHub-Api-Version': '2022-11-28',
         }})
         .then(response => {return response.json()})
-        .then(data => data.map(item => item.login).forEach(friend => {
-            if (!graph.nodes.find(node => node.id === friend)){
-                graph.nodes.push({id: friend, label: friend});
-                graph.edges.push({from: friend, to: friends[0][i]});
+        .then(data => data.map(item => item).forEach(friend => {
+            if (!items.some(item => item.login === friend.login)) { //if friend is not in items list
+                friend.adjacent = [friends[0][i].login]; //adds friend to adj list
+                items.push(friend); //adds friend to items list
             }
             else{
-                graph.edges.push({from: friend, to: friends[0][i]});
+                items.forEach(item => {
+                    if (item.login === friend.login) { //if friend is in items list
+                        item.adjacent.push(friends[0][i].login); //adds friend to adj list
+                    }
+                })
             }
         }));
     }
+    // console.log(items)
 
-    res.send(graph);
+    res.send(items);
 });
 
 
