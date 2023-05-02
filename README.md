@@ -44,6 +44,8 @@ Para instalar o projeto basta utilizar Docker.
 docker compose up --build
 ```
 
+> Nem sempre a instalação do `vite` irá funcionar, caso dê erro, uma possibilidade de workaround é instalar localmente os pacotes sem usar docker e depois inicializar o container.
+
 ## Uso 
 
 Para utilizar o projeto basta utilizar Docker.
