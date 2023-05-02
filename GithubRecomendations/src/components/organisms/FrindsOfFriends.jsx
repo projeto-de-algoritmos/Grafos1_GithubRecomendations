@@ -25,7 +25,7 @@ function App() {
                     background-color='white'
                     height='fit-content'
                     width='fit-content'
-                    padding='clamp(1em, 2vw ,2em)'
+
                 >
                     <Graph/>
 
