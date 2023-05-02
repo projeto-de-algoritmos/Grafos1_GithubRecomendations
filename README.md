@@ -67,4 +67,6 @@ E veja as recomendações de seguidores.
 
 > Após realizar o login, a página irá carregar os dados do grafo, isso pode levar alguns segundos...
 
+> Foi printado no console os objetos do grafo, caso queira analisar de perto...
+
 
