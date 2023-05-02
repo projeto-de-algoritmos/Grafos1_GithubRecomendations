@@ -53,12 +53,12 @@ Execute o container:
 docker compose up
 ```
 
-Acesse o endereço `localhost:8000` no seu navegador.
+Acesse o endereço `localhost:5173` no seu navegador.
 
 Realize login com sua conta do Github.
 
 E veja as recomendações de seguidores.
 
-
+> Após realizar o login, a página irá carregar os dados do grafo, isso pode levar alguns segundos...
 
 
