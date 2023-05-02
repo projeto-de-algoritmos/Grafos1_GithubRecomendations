@@ -1,12 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import githubIcon from '../../assets/github.svg'
 import '../../App.css'
 import Text from '../atoms/Text'
+import 'vis-network/dist/dist/vis-network.min.css';
+import { Network } from 'vis-network';
 
 function Graph() {
-    const [rerender, setRerender] = useState(false);
+    const networkRef = useRef(null);
+    const [graph, setGraph] = useState(null);
     
-    async function getFriendsofFriends(){
+    async function getFriendsofFriendsGraph(){
         await fetch("http://localhost:8000/getFriendsofFriendsGraph",{
             method: 'GET',
             headers: {
@@ -17,16 +20,42 @@ function Graph() {
             }
         })
         .then(response => {return response.json()})
-        .then(data => {console.log(data)});
+        .then(data => {
+            console.log(data.graph);
+            setGraph(data.graph);
+        });
     }
 
     useEffect(() => {
-        getFriendsofFriends();
+        getFriendsofFriendsGraph()
     }, []);
 
-    return (
-        <Text size='2em;'>Aqui tem um grafo</Text>
-    )
+    useEffect(() => {
+        if (graph && networkRef.current) {
+            var options = {
+                nodes: {
+                  shape: "dot",
+                  size: 16,
+                },
+                physics: {
+                  forceAtlas2Based: {
+                    gravitationalConstant: -26,
+                    centralGravity: 0.005,
+                    springLength: 230,
+                    springConstant: 0.18,
+                  },
+                  maxVelocity: 146,
+                  solver: "forceAtlas2Based",
+                  timestep: 0.35,
+                  stabilization: { iterations: 150 },
+                },
+            };
+
+            const network = new Network(networkRef.current, graph, options);
+        }
+    }, [graph]);
+
+    return <div ref={networkRef} style={{ height: '500px' }} />
 }
 
 export default Graph

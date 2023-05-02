@@ -111,6 +111,13 @@ app.get('/getFriendsofFriendsGraph', async function (req, res) {
     const user = await getUserData(req); //gets user data
     const items = [];
 
+    const graph = { //graph object
+        nodes: [],
+        edges: [],
+    };
+
+    graph.nodes.push({id: user.login, label: user.login});  // adds user to graph
+
     const friends = [];
     req.get("Authorization");
     await fetch('https://api.github.com/user/following', {
@@ -130,6 +137,9 @@ app.get('/getFriendsofFriendsGraph', async function (req, res) {
         .then(data => {
             if (Array.isArray(data)) {
                 data.map(item => item).forEach(friend => {
+                    graph.nodes.push({id: friend.login, label: friend.login});  // adds nodes to graph
+                    graph.edges.push({from: user.login, to: friend.login});     // adds edges to graph
+
                     friends.push(data.map(item => item))
                 });
             } else {
@@ -159,8 +169,16 @@ app.get('/getFriendsofFriendsGraph', async function (req, res) {
             })
             .then(data => {
                 if (Array.isArray(data)) {
-                    data.map(item => item).forEach(friend => {
-                        friends[0][i].adjacent.push(friend.login);
+                    data.map(item => item).forEach(fof => {
+                        if (!graph.nodes.find(node => node.id === fof.login)) {
+                            graph.nodes.push({id: fof.login, label: fof.login}); //adds node to graph
+                            graph.edges.push({from: fof.login, to: friends[0][i].login}); //adds edge to graph
+                        }
+                        else{
+                            graph.edges.push({from: fof.login, to: friends[0][i].login}); //adds edge to graph
+                        }
+
+                        friends[0][i].adjacent.push(fof.login);
                     });
                 } else {
                     console.log('data is not an array or is undefined');
@@ -170,9 +188,17 @@ app.get('/getFriendsofFriendsGraph', async function (req, res) {
     // console.log(items)
     // items.shift();
     // console.log(items)
+    console.log(graph)
+
     const friendRecommendations = recommendFriends(items);
     console.log(friendRecommendations)
-    res.send(friendRecommendations);
+
+    const responseItems = {
+        graph: graph,
+        friendRecommendations: friendRecommendations,
+    }
+
+    res.send(responseItems);
 });
 
 
