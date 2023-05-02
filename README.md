@@ -23,6 +23,8 @@ Toda a lógica do algoritmo está em `server/server.js`, os dados são enviados 
 ## Screenshots
 ![image](https://user-images.githubusercontent.com/40258400/231008800-fc143435-c8f4-48b4-aa91-4b56fbf6c8c5.png)
 ![image](https://user-images.githubusercontent.com/40258400/235567101-5e4c3201-4012-49fa-a335-239d4bc46974.png)
+<img width="1512" alt="Screenshot 2023-05-01 at 23 34 21" src="https://user-images.githubusercontent.com/40258400/235567369-4c63769c-b1fe-413c-9005-e3f4eae99f0a.png">
+
 
 
 ## Instalação 
