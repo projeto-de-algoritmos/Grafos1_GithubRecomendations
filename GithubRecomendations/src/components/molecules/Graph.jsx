@@ -5,30 +5,10 @@ import Text from '../atoms/Text'
 import 'vis-network/dist/dist/vis-network.min.css';
 import { Network } from 'vis-network';
 
-function Graph() {
+function Graph(props) {
     const networkRef = useRef(null);
-    const [graph, setGraph] = useState(null);
-    
-    async function getFriendsofFriendsGraph(){
-        await fetch("http://localhost:8000/getFriendsofFriendsGraph",{
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Allow-Control-Allow-Origin': '*',
-                'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
-            }
-        })
-        .then(response => {return response.json()})
-        .then(data => {
-            console.log(data.graph);
-            setGraph(data.graph);
-        });
-    }
 
-    useEffect(() => {
-        getFriendsofFriendsGraph()
-    }, []);
+    const graph = props.graph
 
     useEffect(() => {
         if (graph && networkRef.current) {
