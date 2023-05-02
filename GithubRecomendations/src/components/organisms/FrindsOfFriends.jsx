@@ -60,7 +60,7 @@ function FriendsOfFriends() {
                         </a>
                     </div>
                 {
-                    // <FriendRecommendation friendRecommendations={FOF.friendRecommendations} />
+                    <FriendRecommendation friendRecommendations={FOF.friendRecommendations} />
                 }
             </>
             ) : (<div className="App"></div>)}
