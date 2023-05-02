@@ -27,6 +27,17 @@ Toda a lógica do algoritmo está em `server/server.js`, os dados são enviados 
 **Linguagem**: Javascript<br>
 **Framework**: ReactJS<br>
 
+É necessário que exista um arquivo .env na raíz do repositório com as chaves da API do github
+
+[Neste tutorial](https://codevoweb.com/github-oauth-authentication-react-and-node/) existem instruções de como obter as chaves.
+
+```
+VITE_GITGUB_CLIENT_ID=xxxxxxxxxxxxx
+VITE_GITHUB_SECRET=xxxxxxxxxxxxx
+GITGUB_CLIENT_ID=xxxxxxxxxxxxx
+GITHUB_SECRET=xxxxxxxxxxxxx
+```
+
 Para instalar o projeto basta utilizar Docker.
 
 ```sh
@@ -39,7 +50,7 @@ Para utilizar o projeto basta utilizar Docker.
 Execute o container:
 
 ```sh
-    docker compose up
+docker compose up
 ```
 
 Acesse o endereço `localhost:8000` no seu navegador.
@@ -47,9 +58,6 @@ Acesse o endereço `localhost:8000` no seu navegador.
 Realize login com sua conta do Github.
 
 E veja as recomendações de seguidores.
-
-## Outros 
-Quaisquer outras informações sobre seu projeto podem ser descritas abaixo.
 
 
 
