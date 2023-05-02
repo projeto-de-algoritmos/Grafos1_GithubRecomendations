@@ -115,3 +115,21 @@ body {
   background-color: #8b0000;
   color: white;
 }
+
+.friend-recommendation-page {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  gap: 2rem;
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+friend-recommendation-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}

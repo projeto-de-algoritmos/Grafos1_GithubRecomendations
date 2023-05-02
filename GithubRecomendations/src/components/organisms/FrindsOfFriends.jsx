@@ -17,8 +17,8 @@ function FriendsOfFriends() {
         window.location.replace('/');
     }
 
-    async function getFriendsofFriendsGraph(){
-        await fetch("http://localhost:8000/getFriendsofFriendsGraph",{
+    async function getFriendsofFriendsGraph() {
+        await fetch("http://localhost:8000/getFriendsofFriendsGraph", {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -27,11 +27,13 @@ function FriendsOfFriends() {
                 'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
             }
         })
-        .then(response => {return response.json()})
-        .then(data => {
-            console.log(data);
-            setFOF(data);
-        });
+            .then(response => {
+                return response.json()
+            })
+            .then(data => {
+                console.log(data);
+                setFOF(data);
+            });
     }
 
     useState(() => {
@@ -40,30 +42,36 @@ function FriendsOfFriends() {
 
     return (
         <>
-        {FOF ? (
-            <><h1 className="glitchedText">FOLLOW
-                    RECOMENDATIONS
-                </h1><div>
+            {FOF ? (
+                <><h1 className="glitchedText">
+                    FOLLOW RECOMENDATIONS
+                </h1>
+                    <p>Observe abaixo o grafo da sua rede no github... e use o mouse para iluminar a informação!</p>
+                    <div class='friend-recommendation-page'>
+                    <div>
                         <OutlineCard
                             background-color='white'
                             height='fit-content'
                             width='fit-content'
                         >
-                            <Graph graph={FOF.graph} />
+                            <Graph graph={FOF.graph}/>
 
                         </OutlineCard>
 
-                        <a className="logoff-button" onClick={() => handleClick()}>
+                        <a className="logoff-button"
+                           onClick={() => handleClick()}>
                             <Text size='2em;'>Logoff</Text>
                             <img src={githubIcon} className="logo github"
-                                alt="Github logo" />
+                                 alt="Github logo"/>
                         </a>
                     </div>
-                {
-                    <FriendRecommendation friendRecommendations={FOF.friendRecommendations} />
-                }
-            </>
-            ) : (<div className="App"></div>)}
+                    {
+                        <FriendRecommendation
+                            friendRecommendations={FOF.friendRecommendations}/>
+                    }
+                    </div>
+                </>
+            ) : (<div className="App">Carregando...</div>)}
         </>
     )
 }
