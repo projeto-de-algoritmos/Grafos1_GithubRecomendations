@@ -91,3 +91,27 @@ body {
   background-color: #2e8b57;
   color: white;
 }
+
+.logoff-button {
+  height: fit-content;
+  margin-top: 2rem;
+  padding: 8px;
+  padding-left: 3em;
+  padding-right: 3em;
+  background-color: red;
+  border-radius: 8px;
+  color: white;
+  display: flex;
+  align-items: space-around;
+  gap: 1rem;
+}
+
+.logoff-button img {
+  filter: brightness(0) invert(1);
+  height: 3em;
+}
+
+.logoff-button:hover {
+  background-color: #8b0000;
+  color: white;
+}

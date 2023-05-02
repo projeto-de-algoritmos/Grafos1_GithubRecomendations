@@ -1,12 +1,10 @@
 FROM node:18-alpine
 
-WORKDIR /app
+WORKDIR /front-app
 
 COPY . .
 
 RUN npm install -g vite
-
-RUN ls
 
 RUN npm install --frozen-lockfile
 
@@ -14,4 +12,4 @@ RUN npm run build
 
 EXPOSE 5173
 
-CMD ["npm", "run", "dev"]
+CMD ["npx", "vite"]
