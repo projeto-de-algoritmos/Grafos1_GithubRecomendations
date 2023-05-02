@@ -33,6 +33,49 @@ async function getUserData(req) {
     return data;
 }
 
+function customScoring(yourFriendsSet, friend, friendOfFriendLogin) {
+  const yourCommonFriends = new Set([...yourFriendsSet].filter(x => friend.adjacent.includes(x)));
+
+  // Since we don't have the friends of friends adjacency list, we cannot calculate the common friends with your friend
+  // We can only calculate the points based on the common friends between you and the friend of a friend
+  const yourCommonFriendsPoints = yourCommonFriends.size * 2;
+
+  return yourCommonFriendsPoints;
+}
+
+function recommendFriends(adjacencyList) {
+  const yourFriendsSet = new Set(adjacencyList[0].adjacent);
+  const recommendations = new Map();
+
+  adjacencyList.slice(1).forEach(friend => {
+    friend.adjacent.forEach(friendOfFriendLogin => {
+      if (!yourFriendsSet.has(friendOfFriendLogin) && adjacencyList[0].login !== friendOfFriendLogin) {
+        const score = customScoring(yourFriendsSet, friend, friendOfFriendLogin);
+
+        if (recommendations.has(friendOfFriendLogin)) {
+          recommendations.set(friendOfFriendLogin, {
+            score: Math.max(score, recommendations.get(friendOfFriendLogin).score),
+            connections: recommendations.get(friendOfFriendLogin).connections + 1
+          });
+        } else {
+          recommendations.set(friendOfFriendLogin, {score, connections: 1});
+        }
+      }
+    });
+  });
+
+  const sortedRecommendations = [...recommendations.entries()].sort((a, b) => {
+    if (b[1].score === a[1].score) {
+      return b[1].connections - a[1].connections;
+    } else {
+      return b[1].score - a[1].score;
+    }
+  });
+
+  return sortedRecommendations.map(([friendLogin, {score, connections}]) => ({login: friendLogin, score, connections}));
+}
+
+
 
 app.get('/getAccessToken', async function (req, res) {
     const code = req.query.code;
@@ -64,6 +107,8 @@ app.get('/getAccessToken', async function (req, res) {
 });
 
 app.get('/getFriendsofFriendsGraph', async function (req, res) {
+
+    console.log('request received')
 
     const user = await getUserData(req); //gets user data
     const items = [];
@@ -125,8 +170,11 @@ app.get('/getFriendsofFriendsGraph', async function (req, res) {
           });
     }
     // console.log(items)
-
-    res.send(items);
+    // items.shift();
+    // console.log(items)
+    const friendRecommendations = recommendFriends(items);
+    console.log(friendRecommendations)
+    res.send(friendRecommendations);
 });
 
 
