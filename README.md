@@ -1,6 +1,6 @@
 # Grafos1_GithubRecomendations
 
-**Número da Lista**: X<br>
+**Número da Lista**: 50<br>
 **Conteúdo da Disciplina**: Grafos1<br>
 
 ## Alunos
