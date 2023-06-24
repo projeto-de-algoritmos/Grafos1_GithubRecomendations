@@ -69,4 +69,6 @@ E veja as recomendações de seguidores.
 
 > Foi printado no console os objetos do grafo, caso queira analisar de perto...
 
+## Video explicando
 
+<video src='video.mkv'>
