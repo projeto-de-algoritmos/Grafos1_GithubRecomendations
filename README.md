@@ -69,6 +69,6 @@ E veja as recomendações de seguidores.
 
 > Foi printado no console os objetos do grafo, caso queira analisar de perto...
 
-## Video explicando
+## Video
 
-<video src='video.mkv'>
+https://github.com/projeto-de-algoritmos/Grafos1_GithubRecomendations/assets/49414401/0ba0dc91-59aa-442f-8387-cb8f70b46141
